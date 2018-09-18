@@ -1,0 +1,18 @@
+This is basically the same as the text2data from Shiru's website...
+
+https://shiru.untergrund.net/code.shtml
+
+and works with the famitone2 v 1.15 files provided there.
+
+Changes:
+-added song names to file output
+-added command line switch -allin prevents removal of unused instruments
+-added command line switch -Wno suppresses warnings about unsupported effects
+
+Bugfixes:
+-multiple D00 effects (different channels) incorrect pattern length
+-Bxx below D00 effect (different channels) incorrect pattern length
+-Bxx loop back causing wrong instrument inserted at loop point
+
+example of new switches:
+text2vol filename.txt -ca65 -allin -Wno
