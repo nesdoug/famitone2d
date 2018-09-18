@@ -15,4 +15,4 @@ Bugfixes:
 -Bxx loop back causing wrong instrument inserted at loop point
 
 example of new switches:
-text2vol filename.txt -ca65 -allin -Wno
+text2data filename.txt -ca65 -allin -Wno
