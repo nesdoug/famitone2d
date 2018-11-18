@@ -1,0 +1,358 @@
+Map of all Famitone Variables
+(as an offset from the base value, like $01 = $101 or $701)
+
+There are 3 envelopes, vol env, arp env, pitch env (not for noise)
+
+
+SampleInstrument:	;8 bytes per insturment
+	.byte $b0 ;instrument $00 - 1 byte of starting duty cycle
+	.word @env1,@env0,@env0 - 2 bytes for pointer to each envelope
+	.byte $00 - last one unused, spacer
+	
+
+
+-----------
+ Envelopes	
+-----------
+
+FT_ENV_VALUE = the current value at the current offset in the envelope
+$00 00 Sq 1, Volume Env.
+$01 01 Sq 1, Arp Env.
+$02 02 Sq 1, Pitch Env.
+$03 03 Sq 2, Volume Env.
+$04 04 Sq 2, Arp Env.
+$05 05 Sq 2, Pitch Env.
+$06 06 Tri, Volume Env.
+$07 07 Tri, Arp Env.
+$08 08 Tri, Pitch Env.
+$09 09 Noise, Volume Env.
+$0a 10 Noise, Arp Env.
+
+...ALSO CALLED = 
+
+$00 = FT_CH1_VOLUME  (current volume from the envelope)
+$01 = FT_CH1_NOTE_OFF  (offset, or adjust value)
+$02 = FT_CH1_PITCH_OFF
+
+$03 = FT_CH2_VOLUME
+$04 = FT_CH2_NOTE_OFF
+$05 = FT_CH2_PITCH_OFF
+
+$06 = FT_CH3_VOLUME
+$07 = FT_CH3_NOTE_OFF
+$08 = FT_CH3_PITCH_OFF
+
+$09 = FT_CH4_VOLUME
+$0a = FT_CH4_NOTE_OFF
+
+
+
+
+FT_ENV_REPEAT = length of repeat of a value in an envelope
+-usually zero... if the envelope has 3 or more of the same value in a row
+ it sets a repeat, which counts down (this is to compress the envelope data)
+$0b 11 Sq 1, Volume Env.
+$0c 12 Sq 1, Arp Env.
+$0d 13 Sq 1, Pitch Env.
+$0e 14 Sq 2, Volume Env.
+$0f 15 Sq 2, Arp Env.
+$10 16 Sq 2, Pitch Env.
+$11 17 Tri, Volume Env.
+$12 18 Tri, Arp Env.
+$13 19 Tri, Pitch Env.
+$14 20 Noise, Volume Env.
+$15 21 Noise, Arp Env.
+
+
+FT_ENV_ADR_L = low byte of address to the envelope
+$16 22 Sq 1, Volume Env.
+$17 23 Sq 1, Arp Env.
+$18 24 Sq 1, Pitch Env.
+$19 25 Sq 2, Volume Env.
+$1a 26 Sq 2, Arp Env.
+$1b 27 Sq 2, Pitch Env.
+$1c 28 Tri, Volume Env.
+$1d 29 Tri, Arp Env.
+$1e 30 Tri, Pitch Env.
+$1f 31 Noise, Volume Env.
+$20 32 Noise, Arp Env.
+
+
+FT_ENV_ADR_H = high byte of address to the envelope
+$21 33 Sq 1, Volume Env.
+$22 34 Sq 1, Arp Env.
+$23 35 Sq 1, Pitch Env.
+$24 36 Sq 2, Volume Env.
+$25 37 Sq 2, Arp Env.
+$26 38 Sq 2, Pitch Env.
+$27 39 Tri, Volume Env.
+$28 40 Tri, Arp Env.
+$29 41 Tri, Pitch Env.
+$2a 42 Noise, Volume Env.
+$2b 43 Noise, Arp Env.
+
+
+FT_ENV_PTR = current offset into the envolope
+$2c 44 Sq 1, Volume Env.
+$2d 45 Sq 1, Arp Env.
+$2e 46 Sq 1, Pitch Env.
+$2f 47 Sq 2, Volume Env.
+$30 48 Sq 2, Arp Env.
+$31 49 Sq 2, Pitch Env.
+$32 50 Tri, Volume Env.
+$33 51 Tri, Arp Env.
+$34 52 Tri, Pitch Env.
+$35 53 Noise, Volume Env.
+$36 54 Noise, Arp Env.
+
+
+------------
+ Channels
+------------
+
+
+...loaded to x as part of the pointer calculation
+FT_CH1_VARS = 55, $37
+FT_CH2_VARS = 56, $38
+FT_CH3_VARS = 57, $39
+FT_CH4_VARS = 58, $3a
+FT_CH5_VARS = 59, $3b
+
+
+= low byte of address to the channel in the song data
+$37 55 FT_CHN_PTR_L ch1
+$38 56 FT_CHN_PTR_L ch2
+$39 57 FT_CHN_PTR_L ch3
+$3a 58 FT_CHN_PTR_L ch4
+$3b 59 FT_CHN_PTR_L ch5
+
+
+= high byte of address to the channel in the song data
+$3c 60 FT_CHN_PTR_H ch1
+$3d 61 FT_CHN_PTR_H ch2
+$3e 62 FT_CHN_PTR_H ch3
+$3f 63 FT_CHN_PTR_H ch4
+$40 64 FT_CHN_PTR_H ch5
+
+
+= current note from song data
+$41 65 FT_CH1_NOTE
+$42 66 FT_CH2_NOTE
+$43 67 FT_CH3_NOTE
+$44 68 FT_CH4_NOTE
+$45 69 FT_CH5_NOTE
+
+
+= current instrument from song data
+$46 70 FT_CH1_INSTRUMENT
+$47 71 FT_CH2_INSTRUMENT
+$48 72 FT_CH3_INSTRUMENT
+$49 73 FT_CH4_INSTRUMENT
+$4a 74 FT_CH5_INSTRUMENT (x) = FT_SONG_SPEED
+
+
+= current length of wait between notes from song data
+$4b 75 FT_CHN_REPEAT ch1
+$4c 76 ..ch2
+$4d 77 ..ch3
+$4e 78 ..ch4
+$4f 79 ..ch5
+
+
+Note on REF. The text2data program looks for patterns in the song data, and (for compression)
+replaces the identical pattern of data with a "jump to ref #1". It first saves the return
+address to the current offset in the song before jumping backwards to repeat some common data.
+It counts down a length value, and jumps back once the count reaches zero.
+
+
+= if jumping to a "ref", the low byte of return address to the current song data offset
+$50 80 FT_CHN_RETURN_L
+$51 81 ..ch2
+$52 82 ..ch3
+$53 83 ..ch4
+$54 84 ..ch5
+
+= if jumping to a "ref", the high byte of return address to the current song data offset
+$55 85 FT_CHN_RETURN_H
+$56 86 ..ch2
+$57 87 ..ch3
+$58 88 ..ch4
+$59 89 ..ch5
+
+= if jumping to a "ref", how many bytes of the ref to play
+$5a 90 FT_CHN_REF_LEN 
+$5b 91 ..ch2
+$5c 92 ..ch3
+$5d 93 ..ch4
+$5e 94 ..ch5
+
+
+= current duty cycle from song data
+$5f 95 FT_CH1_DUTY
+$60 96 FT_CH2_DUTY
+$61 97 (x) FT_CH3_DUTY = FT_PULSE1_PREV
+$62 98 FT_CH4_DUTY
+$63 99 (x) FT_CH5_DUTY = FT_PULSE2_PREV
+
+(FT_PULSE1_PREV = last high byte written to pulse channel,
+don't want to write it too frequently, because it will reset the
+channel wave pattern and sound crappy if done every frame)
+
+
+
+---------
+ other
+---------
+
+$64 100 FT_PAL_ADJUST (if PAL TV, use different frequency table)
+$65 101 FT_SONG_LIST_L	(low byte address of song list)
+$66 102 FT_SONG_LIST_H  (high byte address of song list)
+$67 103 FT_INSTRUMENT_L  (low byte address of instrument list)
+$68 104 FT_INSTRUMENT_H  (high byte address of instrument list)
+$69 105 FT_TEMPO_STEP_L  (related to song speed)
+$6a 106 FT_TEMPO_STEP_H  (related to song speed)
+$6b 107 FT_TEMPO_ACC_L   (related to song speed)
+$6c 108 FT_TEMPO_ACC_H   (related to song speed)
+$6d 109 FT_DPCM_LIST_L   (low byte address of DPCM list)
+$6e 110 FT_DPCM_LIST_H   (high byte address of DPCM list)
+$6f 111 FT_DPCM_EFFECT   (set if dpcm sample going, to prevent song dpcm from cutting it short)
+(it reads from 4015 to tell when the sample has ended, and then resets FT_DPCM_EFFECT to zero)
+
+
+FT_OUT_BUF... = output value to the APU register. 11 vars.
+-usually just referenced like FT_OUT_BUF+9
+-if SFX enabled, sfx use same buffer (the MR variable here)
+-v = vol, l / h = frequency
+$70 112 FT_MR_PULSE1_V
+$71 113 FT_MR_PULSE1_L
+$72 114 FT_MR_PULSE1_H
+$73 115 FT_MR_PULSE2_V
+$74 116 FT_MR_PULSE2_L
+$75 117 FT_MR_PULSE2_H
+$76 118 FT_MR_TRI_V
+$77 119 FT_MR_TRI_L
+$78 120 FT_MR_TRI_H
+$79 121 FT_MR_NOISE_V
+$7a 122 FT_MR_NOISE_F
+
+
+
+
+-----------
+ sfx
+-----------
+
+$7b 123 FT_SFX_ADR_L
+$7c 124 FT_SFX_ADR_H
+
+
+(sound effect 0)
+$7d 125 FT_SFX_REPEAT
+$7e 126 FT_SFX_PTR_L
+$7f 127 FT_SFX_PTR_H
+$80 128 FT_SFX_OFF
+$81 129 FT_SFX_BUF - 11 bytes buffer
+$82 130    2
+$83 131    3
+$84 132    4
+$85 133    5
+$86 134    6
+$87 135    7
+$88 136    8
+$89 137    9
+$8a 138    10
+$8b 139    11
+
+
+(sound effect 1)
+$8c 140 FT_SFX_REPEAT
+$8d 141 FT_SFX_PTR_L
+$8e 142 FT_SFX_PTR_H
+$8f 143 FT_SFX_OFF
+$90 144 FT_SFX_BUF - 11 bytes buffer
+$91 145    2
+$92 146    3
+$93 147    4
+$94 148    5
+$95 149    6
+$96 150    7
+$97 151    8
+$98 152    9
+$99 153    10
+$9a 154    11
+
+
+(sound effect 2)
+$9b 155 FT_SFX_REPEAT
+$9c 156 FT_SFX_PTR_L
+$9d 157 FT_SFX_PTR_H
+$9e 158 FT_SFX_OFF
+$9f 159 FT_SFX_BUF - 11 bytes buffer
+$a0 160    2
+$a1 161    3
+$a2 162    4
+$a3 163    5
+$a4 164    6
+$a5 165    7
+$a6 166    8
+$a7 167    9
+$a8 168    10
+$a9 169    11
+
+
+(sound effect 3)
+$aa 170 FT_SFX_REPEAT
+$ab 171 FT_SFX_PTR_L
+$ac 172 FT_SFX_PTR_H
+$ad 173 FT_SFX_OFF
+$ae 174 FT_SFX_BUF - 11 bytes buffer
+$af 175    2
+$b0 176    3
+$b1 177    4
+$b2 178    5
+$b3 179    6
+$b4 180    7
+$b5 181    8
+$b6 182    9
+$b7 183    10
+$b8 184    11
+
+
+README says 186 variables, I count 185
+
+sfx output buffer, see FT_OUT_BUF
+
+
+(Not an address. This is for calling a priority level for a sfx.)
+FT_SFX_CH0 = 0
+FT_SFX_CH1 = 15
+FT_SFX_CH2 = 30
+FT_SFX_CH3 = 45
+
+
+
+---------------
+ apu registers
+---------------
+
+
+APU_PL1_VOL		= $4000
+APU_PL1_SWEEP	= $4001
+APU_PL1_LO		= $4002
+APU_PL1_HI		= $4003
+APU_PL2_VOL		= $4004
+APU_PL2_SWEEP	= $4005
+APU_PL2_LO		= $4006
+APU_PL2_HI		= $4007
+APU_TRI_LINEAR	= $4008
+APU_TRI_LO		= $400a
+APU_TRI_HI		= $400b
+APU_NOISE_VOL	= $400c
+APU_NOISE_LO	= $400e
+APU_NOISE_HI	= $400f
+APU_DMC_FREQ	= $4010
+APU_DMC_RAW		= $4011
+APU_DMC_START	= $4012
+APU_DMC_LEN		= $4013
+APU_SND_CHN		= $4015
+
