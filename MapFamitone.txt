@@ -112,11 +112,22 @@ $36 54 Noise, Arp Env.
 
 
 ...loaded to x as part of the pointer calculation
-FT_CH1_VARS = 55, $37
-FT_CH2_VARS = 56, $38
-FT_CH3_VARS = 57, $39
-FT_CH4_VARS = 58, $3a
-FT_CH5_VARS = 59, $3b
+FT_CH1_VARS = $37, 55
+FT_CH2_VARS = $38, 56
+FT_CH3_VARS = $39, 57
+FT_CH4_VARS = $3a, 58
+FT_CH5_VARS = $3b, 59
+
+...added to these -> to get final address
+FT_CHN_PTR_L		= 0 -> $37, 55
+FT_CHN_PTR_H		= 5 -> $3c, 60
+FT_CHN_NOTE			= 10 -> $41, 65
+FT_CHN_INSTRUMENT	= 15 -> $46, 70
+FT_CHN_REPEAT		= 20 -> $4b, 75
+FT_CHN_RETURN_L		= 25 -> $50, 80
+FT_CHN_RETURN_H		= 30 -> $55, 85
+FT_CHN_REF_LEN		= 35 -> $5a, 90
+FT_CHN_DUTY			= 40 -> $5f, 95
 
 
 = low byte of address to the channel in the song data
@@ -250,7 +261,7 @@ $7c 124 FT_SFX_ADR_H
 $7d 125 FT_SFX_REPEAT
 $7e 126 FT_SFX_PTR_L
 $7f 127 FT_SFX_PTR_H
-$80 128 FT_SFX_OFF
+$80 128 FT_SFX_OFF (offset)
 $81 129 FT_SFX_BUF - 11 bytes buffer
 $82 130    2
 $83 131    3
@@ -268,7 +279,7 @@ $8b 139    11
 $8c 140 FT_SFX_REPEAT
 $8d 141 FT_SFX_PTR_L
 $8e 142 FT_SFX_PTR_H
-$8f 143 FT_SFX_OFF
+$8f 143 FT_SFX_OFF (offset)
 $90 144 FT_SFX_BUF - 11 bytes buffer
 $91 145    2
 $92 146    3
@@ -286,7 +297,7 @@ $9a 154    11
 $9b 155 FT_SFX_REPEAT
 $9c 156 FT_SFX_PTR_L
 $9d 157 FT_SFX_PTR_H
-$9e 158 FT_SFX_OFF
+$9e 158 FT_SFX_OFF (offset)
 $9f 159 FT_SFX_BUF - 11 bytes buffer
 $a0 160    2
 $a1 161    3
@@ -304,7 +315,7 @@ $a9 169    11
 $aa 170 FT_SFX_REPEAT
 $ab 171 FT_SFX_PTR_L
 $ac 172 FT_SFX_PTR_H
-$ad 173 FT_SFX_OFF
+$ad 173 FT_SFX_OFF (offset)
 $ae 174 FT_SFX_BUF - 11 bytes buffer
 $af 175    2
 $b0 176    3
