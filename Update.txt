@@ -16,3 +16,21 @@ Bugfixes:
 
 example of new switches:
 text2data filename.txt -ca65 -allin -Wno
+
+
+Troubleshooting
+
+My song is silent? Possible reasons...
+
+-you are calling a song # too high. The first song is 0, not 1
+LDA #song_number before calling FamiToneMusicPlay
+
+-you forgot to initialize the music code, make sure you 
+send the correct address of the music data to the init code
+LDX #<music_data ;low
+LDY #>music_data ;high
+LDA #1 ;NTSC = 1, PAL = 0
+JSR FamiToneInit
+
+-you forgot to call FamiToneUpdate once per frame
+
