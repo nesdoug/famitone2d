@@ -1,4 +1,8 @@
 ;FamiTone2 v1.12
+;for ca65
+
+
+.export FamiToneInit, FamiToneMusicPlay, FamiToneUpdate
 
 
 
@@ -16,6 +20,9 @@ FT_THREAD = 1			;undefine if you are calling sound effects from the same thread 
 FT_PAL_SUPPORT = 1		;undefine to exclude PAL support
 FT_NTSC_SUPPORT = 1		;undefine to exclude NTSC support
 
+	.if(FT_SFX_ENABLE)
+.export FamiToneSfxPlay, FamiToneSfxInit
+	.endif
 
 
 ;internal defines
@@ -156,6 +163,7 @@ FT_SFX_CH0			= FT_SFX_STRUCT_SIZE*0
 FT_SFX_CH1			= FT_SFX_STRUCT_SIZE*1
 FT_SFX_CH2			= FT_SFX_STRUCT_SIZE*2
 FT_SFX_CH3			= FT_SFX_STRUCT_SIZE*3
+SIZE_FT_SFX = FT_SFX_STRUCT_SIZE*FT_SFX_STREAMS
 
 
 ;aliases for the APU registers
@@ -209,6 +217,11 @@ FT_MR_NOISE_V		= FT_OUT_BUF+9
 FT_MR_NOISE_F		= FT_OUT_BUF+10
 	.endif
 
+POST_FT = FT_SFX_BASE_ADR+SIZE_FT_SFX
+LAST_FT = POST_FT-1
+
+.out .sprintf("last FT variable at %x", LAST_FT)
+.out .sprintf("safe to use at %x", POST_FT)
 
 
 ;------------------------------------------------------------------------------

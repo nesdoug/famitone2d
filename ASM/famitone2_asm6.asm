@@ -1,5 +1,5 @@
 ;FamiTone2 v1.12
-
+;for asm6
 
 
 ;settings, uncomment or put them into your main program; the latter makes possible updates easier
@@ -156,6 +156,7 @@ FT_SFX_CH0			= FT_SFX_STRUCT_SIZE*0
 FT_SFX_CH1			= FT_SFX_STRUCT_SIZE*1
 FT_SFX_CH2			= FT_SFX_STRUCT_SIZE*2
 FT_SFX_CH3			= FT_SFX_STRUCT_SIZE*3
+SIZE_FT_SFX = FT_SFX_STRUCT_SIZE*FT_SFX_STREAMS
 
 
 ;aliases for the APU registers
@@ -209,6 +210,10 @@ FT_MR_NOISE_V		= FT_OUT_BUF+9
 FT_MR_NOISE_F		= FT_OUT_BUF+10
 	.endif
 
+POST_FT = FT_SFX_BASE_ADR+SIZE_FT_SFX
+LAST_FT = POST_FT-1
+
+;it is safe to use RAM starting at POST_FT
 
 
 ;------------------------------------------------------------------------------
